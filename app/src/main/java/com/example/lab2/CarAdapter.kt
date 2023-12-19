@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.lab2.databinding.CarItemBinding
 
 class CarAdapter(private var cars_recycler: ArrayList<Data.Car>,
-                 private val listener: ItemClick): RecyclerView.Adapter<CarAdapter.CarHolder>(), Delete {
+                 private val listener: Presenter): RecyclerView.Adapter<CarAdapter.CarHolder>(), Delete {
 
     class CarHolder(item: View):RecyclerView.ViewHolder(item) {
         val binding = CarItemBinding.bind(item)
@@ -32,7 +32,7 @@ class CarAdapter(private var cars_recycler: ArrayList<Data.Car>,
             val position = carHolder.adapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 val car = cars_recycler[position]
-                listener.onItemClick(car)
+                listener.onCarClick(car)
             }
         }
         return carHolder

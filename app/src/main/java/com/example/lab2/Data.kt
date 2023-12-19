@@ -2,9 +2,8 @@ package com.example.lab2
 
 object Data {
     data class Car(val name:String, val imageID:Int, val power:String)
-
     data class AdvancedCar(
-        var name:String, val imageID:Int, var power:String, var transmitionType:String,
+        var name:String, var imageID:Int, var power:String, var transmitionType:String,
         var engineType:String, var drive:String){
         fun toCar(): Car {
             return Car(this.name, this.imageID, this.power)
@@ -24,11 +23,4 @@ object Data {
         Car("BMW 525 E34", R.drawable.e34, "191hp"),
         Car("Lada Granta", R.drawable.granta, "106hp"),
         Car("Lada Vesta", R.drawable.vesta, "116hp"))
-
-    fun updateInfo(){
-        for(i in 0..<cars_recycler.size){
-            cars.set(i, advanced_cars[i].toCar())
-            cars_recycler.set(i, advanced_cars[i].toCar())
-        }
-    }
 }

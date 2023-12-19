@@ -14,9 +14,4 @@ class MainActivity : AppCompatActivity(){
         supportFragmentManager.beginTransaction()
             .replace(R.id.place_holder, Fragment1.newInstance()).commit()
     }
-
-//    override fun onClick(car: Car) {
-//        supportFragmentManager.beginTransaction().replace(R.id.place_holder, edit_item()).commit()
-//    }
-
 }
