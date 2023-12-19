@@ -68,9 +68,4 @@ class Fragment1 : Fragment(), MyView{
     override fun getBinding(): ViewBinding {
         return binding
     }
-
-//    override fun getName(): String? {
-//        return null
-//    }
-
 }

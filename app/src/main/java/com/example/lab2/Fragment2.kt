@@ -62,12 +62,6 @@ class Fragment2 : Fragment(), MyView {
     }
 
     override fun onItemClick(name: String) {}
-
-//    override fun getName(): String? {
-//        return arguments?.getString("name")
-//    }
-
-
     companion object {
         @JvmStatic
         fun newInstance() = Fragment2()
