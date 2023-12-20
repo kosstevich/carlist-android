@@ -9,8 +9,6 @@ object Data {
             return Car(this.name, this.imageID, this.power)
         }
     }
-
-    var cars_recycler : ArrayList<Car> = ArrayList()
     var index:Int = 0
 
     var advanced_cars = mutableListOf<AdvancedCar>(
@@ -23,4 +21,6 @@ object Data {
         Car("BMW 525 E34", R.drawable.e34, "191hp"),
         Car("Lada Granta", R.drawable.granta, "106hp"),
         Car("Lada Vesta", R.drawable.vesta, "116hp"))
+
+    var cars_recycler : MutableList<Car> = cars
 }

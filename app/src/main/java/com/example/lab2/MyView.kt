@@ -5,9 +5,7 @@ import androidx.viewbinding.ViewBinding
 
 interface MyView {
     fun getRequireActivity(): FragmentActivity
-    fun getBinding(): ViewBinding
     fun onItemClick(name:String)
-    fun setCarInfo()
-    fun getCarInfo():Data.AdvancedCar
+    fun drawCarInfo(name:String?)
     fun onCreate()
 }

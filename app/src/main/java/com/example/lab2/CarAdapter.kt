@@ -1,17 +1,14 @@
 package com.example.lab2
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.lab2.databinding.CarItemBinding
 
-class CarAdapter(private var cars_recycler: ArrayList<Data.Car>,
-                 private val listener: Presenter): RecyclerView.Adapter<CarAdapter.CarHolder>(), Delete {
+class CarAdapter(private var cars_recycler: MutableList<Data.Car>,
+                 private val listener: Presenter): RecyclerView.Adapter<CarAdapter.CarHolder>(){
 
     class CarHolder(item: View):RecyclerView.ViewHolder(item) {
         val binding = CarItemBinding.bind(item)
@@ -46,16 +43,12 @@ class CarAdapter(private var cars_recycler: ArrayList<Data.Car>,
         holder.bind(cars_recycler[position], this)
     }
 
-    fun addCar(car:Data.Car) {
+    fun addCar(car: Data.Car) {
         cars_recycler.add(car)
         notifyDataSetChanged()
     }
 
-    fun showCar(){
-        notifyDataSetChanged()
-    }
-
-    override fun delCar(car:Data.Car){
+    fun delCar(car:Data.Car){
         cars_recycler.remove(car)
         notifyDataSetChanged()
     }

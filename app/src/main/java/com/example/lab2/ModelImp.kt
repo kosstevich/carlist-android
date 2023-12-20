@@ -28,4 +28,14 @@ class ModelImp: Model{
         return index
     }
 
+    override fun isCarExist(name: String?): Boolean {
+        var tmp: Boolean = false
+        for(i in 0..<data.advanced_cars.size){
+            if(name == data.advanced_cars[i].name){
+                tmp = true
+            }
+        }
+        return tmp
+    }
+
 }

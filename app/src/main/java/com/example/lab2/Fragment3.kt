@@ -8,65 +8,64 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
 import com.example.lab2.databinding.Fragment3Binding
-
 class Fragment3 : Fragment(), MyView {
     private lateinit var presenter: PresenterImp
-    private var _binding : Fragment3Binding? = null
-    private val binding : Fragment3Binding get() = _binding!!
+    private lateinit var binding:Fragment3Binding
     var name:String? = null
+    var isFrag1: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         name = arguments?.getString("name")
-        _binding = Fragment3Binding.inflate(inflater, container, false)
+        if(name != null) isFrag1 = false
+        binding = Fragment3Binding.inflate(inflater, container, false)
         val model = ModelImp()
         presenter = PresenterImp(model, this)
-        presenter.onFragment3Created()
+        presenter.onFragmentCreated(name)
 
         return binding.root
     }
 
-    override fun setCarInfo(){
-        val car = presenter.getCarByName(name)
-        binding.name.setText(car.name)
-        binding.drive.setText(car.drive)
-        binding.power.setText(car.power)
-        binding.engineType.setText(car.engineType)
-        binding.transmitionType.setText(car.transmitionType)
+    override fun drawCarInfo(name:String?){
+        if(name != null){
+            val car = presenter.getCarByName(name)
+            binding.name.setText(car.name)
+            binding.drive.setText(car.drive)
+            binding.power.setText(car.power)
+            binding.engineType.setText(car.engineType)
+            binding.transmitionType.setText(car.transmitionType)
+        }
     }
-
-    override fun getCarInfo(): Data.AdvancedCar {
-        name = binding.name.text.toString()
-        return Data.AdvancedCar(
-            binding.name.text.toString(),
-            R.drawable.default_car,
-            binding.drive.text.toString(),
-            binding.engineType.text.toString(),
-            binding.transmitionType.text.toString(),
-            binding.power.text.toString())
-    }
-
     override fun onCreate() {
         binding.backButton.setOnClickListener{
-            val fragment = Fragment2()
-            presenter.openFragment(fragment, name)
+            val fragment2 = Fragment2()
+            val fragment1 = Fragment1()
+            if(isFrag1){
+                presenter.openFragment(fragment1, name)
+            }else{
+                presenter.openFragment(fragment2, name)
+            }
         }
 
         binding.save.setOnClickListener{
-            presenter.setNewData(name)
+            val oldname:String? = name
+            name = binding.name.text.toString()
+            val car = Data.AdvancedCar(
+                binding.name.text.toString(),
+                R.drawable.default_car,
+                binding.drive.text.toString(),
+                binding.engineType.text.toString(),
+                binding.transmitionType.text.toString(),
+                binding.power.text.toString())
+            presenter.setNewData(name,oldname, car)
         }
     }
 
     override fun getRequireActivity(): FragmentActivity {
         return requireActivity()
-    }
-
-    override fun getBinding(): ViewBinding {
-        return binding
     }
 
     override fun onItemClick(name: String) {}

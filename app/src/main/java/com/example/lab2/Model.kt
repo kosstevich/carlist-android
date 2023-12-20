@@ -5,4 +5,5 @@ interface Model {
     fun updateInfo()
     fun findCar(name:String?):Int
     fun getIndx():Int
+    fun isCarExist(name:String?):Boolean
 }

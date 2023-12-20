@@ -11,8 +11,7 @@ import com.example.lab2.databinding.FragmentEditItemBinding
 
 class Fragment2 : Fragment(), MyView {
     private lateinit var presenter: PresenterImp
-    private var _binding : FragmentEditItemBinding? = null
-    private val binding : FragmentEditItemBinding get() = _binding!!
+    private lateinit var binding:FragmentEditItemBinding
     var name:String? = null
 
     override fun onCreateView(
@@ -21,10 +20,10 @@ class Fragment2 : Fragment(), MyView {
     ): View? {
         // Inflate the layout for this fragment
         name = arguments?.getString("name")
-        _binding = FragmentEditItemBinding.inflate(inflater, container, false)
+        binding = FragmentEditItemBinding.inflate(inflater, container, false)
         val model = ModelImp()
         presenter = PresenterImp(model, this)
-        presenter.onFragment2Created()
+        presenter.onFragmentCreated(name)
 
         return binding.root
     }
@@ -32,21 +31,16 @@ class Fragment2 : Fragment(), MyView {
     override fun getRequireActivity(): FragmentActivity {
         return requireActivity()
     }
-    override fun getBinding(): ViewBinding {
-        return binding
-    }
-    override fun setCarInfo() {
-        val car = presenter.getCarByName(name)
-        binding.carImage.setImageResource(car.imageID)
-        binding.carName.setText(car.name)
-        binding.carDrive.setText(car.drive)
-        binding.carPower.setText(car.power)
-        binding.carEngineType.setText(car.engineType)
-        binding.carTransmitionType.setText(car.transmitionType)
-    }
-
-    override fun getCarInfo(): Data.AdvancedCar {
-        TODO("Not yet implemented")
+    override fun drawCarInfo(name: String?) {
+        if(name!=null){
+            val car = presenter.getCarByName(name)
+            binding.carImage.setImageResource(car.imageID)
+            binding.carName.setText(car.name)
+            binding.carDrive.setText(car.drive)
+            binding.carPower.setText(car.power)
+            binding.carEngineType.setText(car.engineType)
+            binding.carTransmitionType.setText(car.transmitionType)
+        }
     }
 
     override fun onCreate() {
@@ -62,6 +56,7 @@ class Fragment2 : Fragment(), MyView {
     }
 
     override fun onItemClick(name: String) {}
+
     companion object {
         @JvmStatic
         fun newInstance() = Fragment2()
